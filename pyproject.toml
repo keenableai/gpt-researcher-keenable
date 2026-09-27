@@ -1,0 +1,49 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "gpt-researcher-keenable"
+version = "0.1.0"
+description = "Keenable web search as a GPT Researcher retriever plugin. No API key needed."
+authors = [{ name = "Keenable", email = "hello@keenable.ai" }]
+maintainers = [{ name = "keenableai" }]
+requires-python = ">=3.12"
+readme = "README.md"
+license = "MIT"
+keywords = ["gpt-researcher", "retriever", "keenable", "web-search", "agents", "research"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+# 0.16.1 is the first release that loads retrievers from the entry-point group.
+dependencies = [
+    "gpt-researcher>=0.16.1",
+    "requests>=2.31",
+]
+
+[project.entry-points."gpt_researcher.retrievers"]
+keenable = "gpt_researcher_keenable:KeenableSearch"
+
+[project.urls]
+Homepage = "https://keenable.ai"
+Documentation = "https://docs.keenable.ai"
+Repository = "https://github.com/keenableai/gpt-researcher-keenable"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.11",
+]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/", "tests/", "LICENSE", "README.md"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/gpt_researcher_keenable"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
